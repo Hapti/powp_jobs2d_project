@@ -1,7 +1,9 @@
 package edu.kis.powp.jobs2d;
 
+import edu.kis.legacy.drawer.shape.LineFactory;
 import edu.kis.powp.appbase.Application;
 import edu.kis.powp.jobs2d.drivers.adapter.Job2dDriverAdapter;
+import edu.kis.powp.jobs2d.drivers.adapter.LineDrawerAdapter;
 import edu.kis.powp.jobs2d.events.SelectTestFigure2OptionListener;
 import edu.kis.powp.jobs2d.events.SelectTestFigureOptionListener;
 import edu.kis.powp.jobs2d.features.DrawerFeature;
@@ -15,6 +17,9 @@ import java.util.logging.Logger;
 public class TestJobs2dPatterns {
 	//pkrystian: changed order to match standards
 	private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	private static final String BASIC_LINE_DRAWER = "Basic Line Drawer";
+	private static final String DOTTED_LINE_DRAWER = "Dotted Line Drawer";
+	private static final String SPECIAL_LINE_DRAWER = "Special Line Drawer";
 
 	/**
 	 * Setup test concerning preset figures in context.
@@ -26,7 +31,6 @@ public class TestJobs2dPatterns {
 				DriverFeature.getDriverManager());
 		final SelectTestFigure2OptionListener selectTestFigure2OptionListener = new SelectTestFigure2OptionListener(
 				DriverFeature.getDriverManager());
-
 
 		application.addTest("Figure Joe 1", selectTestFigureOptionListener);
 		application.addTest("Figure Joe 2", selectTestFigure2OptionListener);
@@ -44,6 +48,22 @@ public class TestJobs2dPatterns {
 
 		final Job2dDriver testDriver = new Job2dDriverAdapter(DrawerFeature.getDrawerController());
 		DriverFeature.addDriver("Buggy Simulator", testDriver);
+
+		final Job2dDriver basicLineDriver = new LineDrawerAdapter(DrawerFeature.getDrawerController(),
+				LineFactory.getBasicLine(),
+				BASIC_LINE_DRAWER);
+		DriverFeature.addDriver(BASIC_LINE_DRAWER, basicLineDriver);
+
+		final Job2dDriver dottedLineDriver = new LineDrawerAdapter(DrawerFeature.getDrawerController(),
+				LineFactory.getDottedLine(),
+				DOTTED_LINE_DRAWER);
+		DriverFeature.addDriver(DOTTED_LINE_DRAWER, dottedLineDriver);
+
+		final Job2dDriver specialLineDriver = new LineDrawerAdapter(DrawerFeature.getDrawerController(),
+				LineFactory.getSpecialLine(),
+				SPECIAL_LINE_DRAWER);
+		DriverFeature.addDriver(SPECIAL_LINE_DRAWER, specialLineDriver);
+
 
 		DriverFeature.updateDriverInfo();
 	}
