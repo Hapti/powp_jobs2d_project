@@ -4,6 +4,7 @@ import edu.kis.legacy.drawer.shape.LineFactory;
 import edu.kis.powp.appbase.Application;
 import edu.kis.powp.jobs2d.drivers.adapter.Job2dDriverAdapter;
 import edu.kis.powp.jobs2d.drivers.adapter.LineDrawerAdapter;
+import edu.kis.powp.jobs2d.drivers.adapter.LineDrawerAdapterFromAbstract;
 import edu.kis.powp.jobs2d.events.SelectTestFigure2OptionListener;
 import edu.kis.powp.jobs2d.events.SelectTestFigureOptionListener;
 import edu.kis.powp.jobs2d.features.DrawerFeature;
@@ -20,6 +21,7 @@ public class TestJobs2dPatterns {
 	private static final String BASIC_LINE_DRAWER = "Basic Line Drawer";
 	private static final String DOTTED_LINE_DRAWER = "Dotted Line Drawer";
 	private static final String SPECIAL_LINE_DRAWER = "Special Line Drawer";
+    private static final String DRAWER_FROM_ABSTRACT = "Drawer from abstract";
 
 	/**
 	 * Setup test concerning preset figures in context.
@@ -64,6 +66,8 @@ public class TestJobs2dPatterns {
 				SPECIAL_LINE_DRAWER);
 		DriverFeature.addDriver(SPECIAL_LINE_DRAWER, specialLineDriver);
 
+		final Job2dDriver drawerFromAbstract = new LineDrawerAdapterFromAbstract(DrawerFeature.getDrawerController());
+        DriverFeature.addDriver(DRAWER_FROM_ABSTRACT, drawerFromAbstract);
 
 		DriverFeature.updateDriverInfo();
 	}
